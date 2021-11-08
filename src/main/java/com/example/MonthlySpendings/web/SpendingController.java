@@ -25,9 +25,138 @@ public class SpendingController {
 	@Autowired
 	private FrequencyRepository fRepository;
 	
-    @RequestMapping(value = "/spendinglist")
+    @RequestMapping(value = {"/",  "/spendinglist"})
     public String spendingList(Model model) {	
         model.addAttribute("spendings", sRepository.findAll());
+        
+        //	Week into month
+        //1 = *30		6 = /3
+        //2 = *12		7 = /6
+        //3 = *4		8 = /12
+        //4 = *1.33		9 = /24
+        //5 = *1		10 = /36
+        
+        //	Type definition
+        //11 = Mandatory
+        //12 = Useful
+        //13 = Useless
+        
+        double overallCalc = 0;
+        double noUselessCalc = 0;
+        double minimumCalc = 0;
+        double uselessCalc = 0;
+        double usefulCalc = 0;
+        double yearlyCalc = 0;
+        
+        for (Spending spending : sRepository.findAll()) {
+        	if (spending.getFrequency().getFrequencyId() != 9) {
+            	if (spending.getFrequency().getFrequencyId() == 1) {
+            		overallCalc += spending.getCost()*30;
+            		if (spending.getType().getTypeId() == 13) {
+            			uselessCalc += spending.getCost()*30;
+            		}
+            		if (spending.getType().getTypeId() == 12) {
+            			usefulCalc += spending.getCost()*30;
+            		}
+            	}
+            	if (spending.getFrequency().getFrequencyId() == 2) {
+            		overallCalc += spending.getCost()*12;
+            		if (spending.getType().getTypeId() == 13) {
+            			uselessCalc += spending.getCost()*12;
+            		}
+            		if (spending.getType().getTypeId() == 12) {
+            			usefulCalc += spending.getCost()*12;
+            		}
+            	}
+            	if (spending.getFrequency().getFrequencyId() == 3) {
+            		overallCalc += spending.getCost()*4;
+            		if (spending.getType().getTypeId() == 13) {
+            			uselessCalc += spending.getCost()*4;
+            		}
+            		if (spending.getType().getTypeId() == 12) {
+            			usefulCalc += spending.getCost()*4;
+            		}
+            	}
+            	if (spending.getFrequency().getFrequencyId() == 4) {
+            		overallCalc += spending.getCost()*1.33;
+            		if (spending.getType().getTypeId() == 13) {
+            			uselessCalc += spending.getCost()*1.33;
+            		}
+            		if (spending.getType().getTypeId() == 12) {
+            			usefulCalc += spending.getCost()*1.33;
+            		}
+            	}
+            	if (spending.getFrequency().getFrequencyId() == 5) {
+            		overallCalc += spending.getCost();
+            		if (spending.getType().getTypeId() == 13) {
+            			uselessCalc += spending.getCost();
+            		}
+            		if (spending.getType().getTypeId() == 12) {
+            			usefulCalc += spending.getCost();
+            		}
+            	}
+            	if (spending.getFrequency().getFrequencyId() == 6) {
+            		overallCalc += spending.getCost()/3;
+            		if (spending.getType().getTypeId() == 13) {
+            			uselessCalc += spending.getCost()/3;
+            		}
+            		if (spending.getType().getTypeId() == 12) {
+            			usefulCalc += spending.getCost()/3;
+            		}
+            	}
+            	if (spending.getFrequency().getFrequencyId() == 7) {
+            		overallCalc += spending.getCost()/6;
+            		if (spending.getType().getTypeId() == 13) {
+            			uselessCalc += spending.getCost()/6;
+            		}
+            		if (spending.getType().getTypeId() == 12) {
+            			usefulCalc += spending.getCost()/6;
+            		}
+            	}
+            	if (spending.getFrequency().getFrequencyId() == 8) {
+            		overallCalc += spending.getCost()/12;
+            		if (spending.getType().getTypeId() == 13) {
+            			uselessCalc += spending.getCost()/12;
+            		}
+            		if (spending.getType().getTypeId() == 12) {
+            			usefulCalc += spending.getCost()/12;
+            		}
+            	}
+            	if (spending.getFrequency().getFrequencyId() == 9) {
+            		overallCalc += spending.getCost()/24;
+            		if (spending.getType().getTypeId() == 13) {
+            			uselessCalc += spending.getCost()/24;
+            		}
+            		if (spending.getType().getTypeId() == 12) {
+            			usefulCalc += spending.getCost()/24;
+            		}
+            	} 
+            	if (spending.getFrequency().getFrequencyId() == 10) {
+            		overallCalc += spending.getCost()/36;
+            		if (spending.getType().getTypeId() == 13) {
+            			uselessCalc += spending.getCost()/36;
+            		}
+            		if (spending.getType().getTypeId() == 12) {
+            			usefulCalc += spending.getCost()/36;
+            		}
+            	} 
+        	}	
+        }
+        
+        noUselessCalc = overallCalc - uselessCalc;
+        minimumCalc = overallCalc - uselessCalc - usefulCalc;
+        yearlyCalc = overallCalc * 12;
+        
+        
+        
+        
+        System.out.println("\noverallCalc: " +Math.round(overallCalc*100.0)/100.0);
+        System.out.println("\nuselessCalc: " +Math.round(uselessCalc*100.0)/100.0);
+        System.out.println("\nnoUselessCalc: " +Math.round(noUselessCalc*100.0)/100.0);
+        System.out.println("\nusefulCalc: " +Math.round(usefulCalc*100.0)/100.0);
+        System.out.println("\nminimumCalc: " +Math.round(minimumCalc*100.0)/100.0);
+        System.out.println("\nyearlyCalc: " +Math.round(yearlyCalc*100.0)/100.0);
+        
         return "spendinglist";
     }
     
