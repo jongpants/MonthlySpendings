@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spendinglist</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Monthly Spendings Calculator</h1>
+    <table>
+		<tr>
+		    <th>Spending</th>
+		    <th>Type</th>
+		    <th>Cost</th>
+		    <th>Frequency</th>
+		</tr>  
+    	<tr th:each = "spending : ${spendings}">
+    		<td th:text="${spending.name}"></td>
+    		<td th:text="${spending.type.name}"></td>
+    		<td th:text="${spending.cost}"></td>
+    		<td th:text="${spending.frequency.name}"></td>
+ 				<td><a th:href="@{/delete/{id}(id=${spending.id})}">Delete</a></td>
+ 				<td><a th:href="@{/edit/{id}(id=${spending.id})}">Edit</a></td>  		
+    	</tr>
+     </table>
+	 <a href="/add">Add Spending</a>    	
+</body>
+</html>

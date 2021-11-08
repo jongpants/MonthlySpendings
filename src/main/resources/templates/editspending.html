@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spendinglist</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Add spending</h1>
+	<div>
+		<form th:object="${spending}" th:action="@{../save}" action="#" method="post">
+			<input type="hidden" th:field="*{id}" class="form-control" />
+			
+		  	<label for="name">Spending</label>
+			<input type="text" id="name" th:field="*{name}" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+			
+			<label for="typelist">Type</label>
+			 <select id="typelist" th:field="*{type}" class="form-control">
+       			<option th:each="type: ${types}" th:value="${type.typeId}" th:text="${type.name}"></option>
+    		</select>
+			<div style="clear: both; display: block; height: 10px;"></div>
+			
+		  	<label for="cost">Cost</label>
+			<input type="text" id="cost" th:field="*{cost}" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+			
+			<label for="freqlist">Frequency</label>
+			 <select id="freqlist" th:field="*{frequency}" class="form-control">
+       			<option th:each="frequency: ${frequencies}" th:value="${frequency.frequencyId}" th:text="${frequency.name}"></option>
+    		</select>
+			<div style="clear: both; display: block; height: 10px;"></div>
+			
+			<input type="submit" value="Save"></input>
+		</form>
+	</div>
+</body>
+</html>
