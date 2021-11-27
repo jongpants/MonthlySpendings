@@ -2,9 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Spendinglist</title>
+    <script type = "text/javascript" src="com.example.MonthlySpending.web.SpendingController.java"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
+	<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Sign Out"/>
+	</form>
 	<h1>Monthly Spendings Calculator</h1>
     <table>
 		<tr>
@@ -19,9 +23,11 @@
     		<td th:text="${spending.cost}"></td>
     		<td th:text="${spending.frequency.name}"></td>
  				<td><a th:href="@{/delete/{id}(id=${spending.id})}">Delete</a></td>
- 				<td><a th:href="@{/edit/{id}(id=${spending.id})}">Edit</a></td>  		
+ 				<td><a th:href="@{/edit/{id}(id=${spending.id})}">Edit</a></td>
     	</tr>
      </table>
+     <h3 th:text="${overallCalc}"></h3>
+     
 	 <a href="/add">Add Spending</a>    	
 </body>
 </html>

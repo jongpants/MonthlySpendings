@@ -16,6 +16,7 @@ public class Frequency {
 	private Long frequencyId;
 	private String name;
 	
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "frequency")
 	private List<Spending> spendings;
 	

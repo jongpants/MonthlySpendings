@@ -3,6 +3,7 @@ package com.example.MonthlySpendings.web;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,22 +26,31 @@ public class SpendingController {
 	@Autowired
 	private FrequencyRepository fRepository;
 	
-    @RequestMapping(value = {"/",  "/spendinglist"})
+	@RequestMapping(value="/login")
+    public String login() {	
+        return "login";
+    }
+	
+    @RequestMapping(value = "/spendinglist")
     public String spendingList(Model model) {	
         model.addAttribute("spendings", sRepository.findAll());
         
-        //	Week into month
-        //1 = *30		6 = /3
-        //2 = *12		7 = /6
-        //3 = *4		8 = /12
-        //4 = *1.33		9 = /24
-        //5 = *1		10 = /36
+ /*		Week into month calculation
+ 		1 = *30		6 = /3
+        2 = *12		7 = /6
+        3 = *4		8 = /12
+        4 = *1.33	9 = /24
+        5 = *1		10 = /36
         
-        //	Type definition
-        //11 = Mandatory
-        //12 = Useful
-        //13 = Useless
-        
+        Type definition
+        11 = Mandatory
+        12 = Useful
+        13 = Useless
+ */
+
+ //       				-----------------------
+ //						-- Calculation START --
+ //						-----------------------
         double overallCalc = 0;
         double noUselessCalc = 0;
         double minimumCalc = 0;
@@ -147,9 +157,6 @@ public class SpendingController {
         minimumCalc = overallCalc - uselessCalc - usefulCalc;
         yearlyCalc = overallCalc * 12;
         
-        
-        
-        
         System.out.println("\noverallCalc: " +Math.round(overallCalc*100.0)/100.0);
         System.out.println("\nuselessCalc: " +Math.round(uselessCalc*100.0)/100.0);
         System.out.println("\nnoUselessCalc: " +Math.round(noUselessCalc*100.0)/100.0);
@@ -157,19 +164,29 @@ public class SpendingController {
         System.out.println("\nminimumCalc: " +Math.round(minimumCalc*100.0)/100.0);
         System.out.println("\nyearlyCalc: " +Math.round(yearlyCalc*100.0)/100.0);
         
+        model.addAttribute("asdqwe", overallCalc);
+ //       				---------------------
+ //						-- Calculation END --
+ //       				---------------------
+        
         return "spendinglist";
     }
     
+ // 					-- RESTFUL STUFF --
+ //			Only accessible by users with the ADMIN role
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value="/spendings", method = RequestMethod.GET)
     public @ResponseBody List<Spending> spendingListRest() {	
         return (List<Spending>) sRepository.findAll();
     }    
-
+    
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value="/spending/{id}", method = RequestMethod.GET)
     public @ResponseBody Optional<Spending> findSpendingRest(@PathVariable("id") Long spendingId) {	
     	return sRepository.findById(spendingId);
     }
-  
+ //						-- RESTFUL END -- 
+    
     @RequestMapping(value = "/add")
     public String addSpending(Model model){
     	model.addAttribute("spending", new Spending());
