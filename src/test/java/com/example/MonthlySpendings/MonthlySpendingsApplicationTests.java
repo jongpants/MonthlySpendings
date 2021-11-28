@@ -95,23 +95,27 @@ public class MonthlySpendingsApplicationTests {
     public void createNewSpending() {
     	Spending spending = new Spending("New Game", tRepository.findByName("Useful").get(0), 60, fRepository.findByName("Once a month").get(0));
     	sRepository.save(spending);
-    	assertThat(spending.getId()).isNotNull();
+    	
+    	List<Spending> spendings = sRepository.findByName("New Game");   	
+    	assertThat(spendings.get(0).getName()).isEqualTo("New Game");
+    	
     }
     
- // I've tried to learn how to do the delete testing and found something about MOCK but with many hours of testing..
- // I was not able to get the MOCK thing to work either
     @Test
     public void deleteSpending() {
-    	Spending spendingDelete = new Spending("Mouse", tRepository.findByName("Useful").get(0), 100, fRepository.findByName("Once every 3 years").get(0));
-
-    	sRepository.delete(spendingDelete);
+    	List<Spending> spendings = sRepository.findByName("Tobacco");
+    	assertThat(spendings.size()).isEqualTo(1);
+ 
+    	sRepository.delete(spendings.get(0));
     	
-    	assertThat(spendingDelete.getName()).isEqualTo(22);
+    	List<Spending> spendings2 = sRepository.findByName("Tobacco");   	
+    	assertThat(spendings2.size()).isEqualTo(0);
     }
     
- // Same thing with this also, probably something about MOCK but I lack the knowledge
+ // Lack of knowledge to do this one
     @Test
     public void editSpending() {
     	
-    }  
+    }
+ // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 }

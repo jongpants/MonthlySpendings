@@ -35,6 +35,10 @@ public class SpendingController {
     public String spendingList(Model model) {	
         model.addAttribute("spendings", sRepository.findAll());
         
+ //						-----------------------
+ //						-- Calculation START --
+ //						-----------------------
+        
  /*		Week into month calculation
  		1 = *30		6 = /3
         2 = *12		7 = /6
@@ -48,9 +52,6 @@ public class SpendingController {
         13 = Useless
  */
 
- //       				-----------------------
- //						-- Calculation START --
- //						-----------------------
         double overallCalc = 0;
         double noUselessCalc = 0;
         double minimumCalc = 0;
@@ -157,14 +158,30 @@ public class SpendingController {
         minimumCalc = overallCalc - uselessCalc - usefulCalc;
         yearlyCalc = overallCalc * 12;
         
-        System.out.println("\noverallCalc: " +Math.round(overallCalc*100.0)/100.0);
-        System.out.println("\nuselessCalc: " +Math.round(uselessCalc*100.0)/100.0);
-        System.out.println("\nnoUselessCalc: " +Math.round(noUselessCalc*100.0)/100.0);
-        System.out.println("\nusefulCalc: " +Math.round(usefulCalc*100.0)/100.0);
-        System.out.println("\nminimumCalc: " +Math.round(minimumCalc*100.0)/100.0);
-        System.out.println("\nyearlyCalc: " +Math.round(yearlyCalc*100.0)/100.0);
+ //						-- ROUNDING TO 2 DECIMALS --
+        overallCalc = Math.round(overallCalc*100.0)/100.0;
+        uselessCalc = Math.round(uselessCalc*100.0)/100.0;
+        noUselessCalc = Math.round(noUselessCalc*100.0)/100.0;
+        usefulCalc = Math.round(usefulCalc*100.0)/100.0;
+        minimumCalc = Math.round(minimumCalc*100.0)/100.0;
+        yearlyCalc = Math.round(yearlyCalc*100.0)/100.0;
         
-        model.addAttribute("asdqwe", overallCalc);
+ //		-- MAKING STRINGS FOR OUTPUT BECAUSE PUTTING TEXT IN THE HTML VARIABLE CALLS WAS DIFFICULT --
+        String spendingString1 = "Total spendings: " +overallCalc+ " | Yearly spending: " +yearlyCalc;
+        String spendingString2 = "Without useless: " +noUselessCalc+ " | Useless spendings: " +uselessCalc;
+        String spendingString3 = "Without useless and usefuls: " +minimumCalc+ " | Useful spendings: " +usefulCalc;       
+        model.addAttribute("spendingString1", spendingString1);
+        model.addAttribute("spendingString2", spendingString2);
+        model.addAttribute("spendingString3", spendingString3);
+        
+ //					-- CALCULATION TESTING IN CONSOLE --
+        System.out.println("\noverallCalc: " +overallCalc);
+        System.out.println("uselessCalc: " +uselessCalc);
+        System.out.println("noUselessCalc: " +noUselessCalc);
+        System.out.println("usefulCalc: " +usefulCalc);
+        System.out.println("minimumCalc: " +minimumCalc);
+        System.out.println("yearlyCalc: " +yearlyCalc);
+        
  //       				---------------------
  //						-- Calculation END --
  //       				---------------------

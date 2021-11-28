@@ -26,8 +26,11 @@
  				<td><a th:href="@{/edit/{id}(id=${spending.id})}">Edit</a></td>
     	</tr>
      </table>
-     <h3 th:text="${overallCalc}"></h3>
      
-	 <a href="/add">Add Spending</a>    	
+     <a href="/add">Add Spending</a>
+     
+     <p th:text="${spendingString1}"></p>
+     <p th:text="${spendingString2}"></p>
+     <p th:text="${spendingString3}"></p>  	
 </body>
 </html>
