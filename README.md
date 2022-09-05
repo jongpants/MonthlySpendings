@@ -1,38 +1,29 @@
 # MonthlySpendings
-App to calculate monthly spending on necessities and other stuff
+App to calculate monthly spending on necessities and other stuff.
 
-User LOGIN
-Username: user
-Password: USER
+**User Login** </br>
+Username: user </br>
+Password: user </br>
 
-Admin LOGIN
-Username: admin
-Password: ADMIN
+**Admin Login** </br>
+Username: admin </br>
+Password: admin </br>
 
 Add, remove and/or edit spendings and see the frontpage (spendinglist) for a list of your spendings and different kinds of calculations.
 
-# CocktailDB
-
 <h2>About</h2>
-This application is made by Jong Lau for Haaga-Helias mobile programming course as a course project work. The projects idea was to use a random free API to create a phone application with focus more on the code itself and applying phone functionalities to it than for example how the application looks. My project uses a free API from https://www.thecocktaildb.com/ which has hundreds of drinks with recipes. The API can search at maximum 25 drinks by name, while if searching using ingredient it returns much more drinks but with no recipe. For more information about the API, you can look at the website itself.
+This very simple java web application is made by Jong Lau for Haaga-Helias server programming course as a course project work. The projects idea was to use java and Spring to create an application that is very well written in the backend and frontend can be left barebones.
 
 </br>
-My application is made to have a very clean and minimalistic look with the features to search drinks by name or by ingredient. It has phone functionalities like: pushing the enter/continue button on your phones keyboard will also activate the search button, a swipe functionality on each row that will reveal a button which returns a page of full ingredient list and instructions on the recipe of the chosen drink. Lastly when toggling the switch to search by name or ingredient a small toaster popup will appear to notify if you're searching by name or ingredient.
+The application is made by having multiple repositories like Frequency, Spending, Type, etc to have a controller file that takes all the possible variables, calculates them and outputs them in the website. The login is has password hashing for security but for showing off the project the login informations are listed in top. Login screen itself is provided by Spring so it visually looks better than other parts of the project.
 
 </br>
-<h2>Scrapped Features</h2>
-The course recommended us to use Firebase DB and my extra features included a favourite list, register and login system for personalized favourite lists. At the time of making the app, it came apparent to me and the teacher that Firebase did not work correctly with our version of Expo. Which wasted days of troubleshoot efforts from me and in the end with too little time left, I had to release the application without the functionalities.
+<h1>Login Screen and Front Page</h1>
+
+![login](readMePictures/login.png) ![frontpage](readMePictures/frontpage.png)
 
 </br>
-My code according to the teachers review was very clean and understandable while also having good commenting. The scrapped features codes were also just simply commented out or regarding the files themselves made unsuable, but every scrapped comment/file could be easily be removed with no problem at all, which of course was tested thoroughly.
-
-</br>
-<h1>Opening application and search by name</h1>
-
-![OpeningApplication](readMePictures/OpeningApplication.png) ![List](readMePictures/List.png)
-
-</br>
-<h1>Swipe functionality and full drink details</h1>
+<h1>Front Page</h1>
 
 ![SearchByName](readMePictures/SearchByName.png) ![FullRecipe](readMePictures/FullRecipe.png)
 
