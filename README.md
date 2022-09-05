@@ -18,16 +18,18 @@ This very simple java web application is made by Jong Lau for Haaga-Helias serve
 The application is made by having multiple repositories like Frequency, Spending, Type, etc to have a controller file that takes all the possible variables, calculates them and outputs them in the website. The login is has password hashing for security but for showing off the project the login informations are listed in top. Login screen itself is provided by Spring so it visually looks better than other parts of the project.
 
 </br>
-<h1>Login Screen and Front Page</h1>
+<h1>Login Screen</h1>
 
-![login](readMePictures/login.png) ![frontpage](readMePictures/frontpage.png)
+![login](readMePictures/login.png)
 
-</br>
 <h1>Front Page</h1>
 
-![SearchByName](readMePictures/SearchByName.png) ![FullRecipe](readMePictures/FullRecipe.png)
+![frontpage](readMePictures/frontpage.png)
 
-</br>
-<h1>Search by ingredient</h1>
+<h1>Add Spending</h1>
 
-![Popup](readMePictures/Popup.png) ![SearchByIngredient](readMePictures/SearchByIngredient.png)
+![add](readMePictures/add.png)
+
+<h1>Edit Existing Spending</h1>
+
+![edit](readMePictures/edit.png)
